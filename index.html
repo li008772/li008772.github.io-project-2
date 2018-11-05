@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <title>Map</title>
+  <link rel="stylesheet" type="text/css" href="leaflet.css" />
+  <link rel="stylesheet" type="text/css" href="style.css" />
+  <script type="text/javascript" src="leaflet.js"></script>
+  <script type="text/javascript" src="code.js"></script>
+ </head>
+ <body>
+ <script type="text/javascript" src="code.js"></script>
+<div id="mymap">
+<script>
+var mymap = L.map('mymap').setView([51.505, -0.09], 13);
+</script>
+</div>
+<script>
+L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    maxZoom: 18,
+    id: 'mapbox.streets',
+    accessToken: 'pk.eyJ1IjoiYmVsaWFsMTIiLCJhIjoiY2puenRwOHlrMnFsZTN1bWtxczNyeWM2ZyJ9.4t2kLgoANCYJFXmikQ7lMA'
+}).addTo(mymap);
+
+</script>
+<p>
+<input type="text" id="latitude" value="51.505">
+<input type="text" id="longtitude" value="-0.09">
+<button type="button" id="change" onclick="updateMap()"> Change </button>
+</p>
+<p>
+<button type="button" id="fullscreen" onclick="fullscreen()"> Go fullscreen </button>
+</p>
+<script>mymap.on('moveend',updateBox);</script>
+ </body>
+</html>
