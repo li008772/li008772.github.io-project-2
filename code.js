@@ -18,6 +18,31 @@ function updateMap()
 	mymap.panTo(new L.LatLng(location1, location2));
 }
 
+function updatelocation()
+{
+	var token = "6352d14a272592";
+	var type = "geocoding";
+	var textInput = document.getElementById("name").value;
+	var findplace = textInput.replace(/ /g,"%20");
+	const request = new XMLHttpRequest();
+	const address = "https://us1.unwiredlabs.com/v2/address.php?type="+type+"&token="+token+"&formate=json&q="+findplace;
+	request.open("GET",address);
+	request.send();
+	request.onreadystatechange=function()
+	{
+		if(this.readyState==4&&this.status==200)
+		{
+			alert(request.responseText);
+		}
+		else if(this.status>=500)
+		{
+			alert("error");
+		}
+	}
+	
+
+}
+
 function updateBox()
 {
 	var location1 = document.getElementById("latitude");
@@ -37,12 +62,13 @@ function test()
 
 function fullscreen()
 {
-	var elem = document.body;
-	var full = elem.webkitRequestFullScreen ;
-	if(full)
+	var elem1 = document.getElementById("mymap");
+	if(elem1.webkitRequestFullscreen)
 	{
-	full.call(elem);
+	elem1.webkitRequestFullscreen();
 	}
+
+	
 	
 }
 

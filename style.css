@@ -1,6 +1,13 @@
 #mymap
 {
-	height: 30rem;
+	height: 40rem;
 	width: 45rem;
 	
+}
+#innerbox
+{
+	position:relative;
+	z-index: 2147483647;
+	top:1.5rem;
+	left: 2rem;
 }
