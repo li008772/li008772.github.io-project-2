@@ -24,10 +24,34 @@ function updatelocation()
 	var type = "geocoding";
 	var textInput = document.getElementById("name").value;
 	var findplace = textInput.replace(/ /g,"%20");
-	const request = new XMLHttpRequest();
-	const address = "https://us1.unwiredlabs.com/v2/address.php?type="+type+"&token="+token+"&formate=json&q="+findplace;
-	request.open("GET",address);
-	request.send();
+	//const request = new XMLHttpRequest();
+	var address = "https://us1.unwiredlabs.com/v2/address.php?type="+type+"&token="+token+"&formate=json&q="+findplace;
+    const request1 = new XMLHttpRequest();
+  if ("withCredentials" in request1) {
+
+    request1.open("GET", address, true);
+
+  } 
+  else
+	  {
+
+    xhr = null;
+
+  }
+  request1.onreadystatechange=function()
+	{
+		if(this.readyState==4&&this.status==200)
+		{
+			alert(request.responseText);
+		}
+		else if(this.status>=400)
+		{
+			alert("error");
+		}
+	}
+  
+	/*
+	request.open("GET",address,true);
 	request.onreadystatechange=function()
 	{
 		if(this.readyState==4&&this.status==200)
@@ -39,6 +63,10 @@ function updatelocation()
 			alert("error");
 		}
 	}
+	request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	request.send();
+	*/
+	request1.send();
 	
 
 }
