@@ -131,4 +131,13 @@ background-color: #8f3f97;
 background-color: #7e0023;
 }
 
+.resize {
+    width: 400px;
+    height: auto;
+}
+
+.resize {
+    width: 300px;
+    height: auto;
+}
 
