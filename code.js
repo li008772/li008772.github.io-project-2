@@ -599,6 +599,7 @@ function updateTable(){
 					if(store[count][i].value > 0 && store[count][i].value < 51)
 					{
 						cell.style.background = '#00e400';
+						
 					}
 					else if(store[count][i].value > 50 && store[count][i].value < 100)
 					{
@@ -607,18 +608,99 @@ function updateTable(){
 					else if(store[count][i].value > 100 && store[count][i].value < 151)
 					{
 						cell.style.background = '#ff7e00';
+						if(chemical[x] == "o3")
+						{
+				
+                        alert(value.coordinates.latitude+ ""+value.coordinates.longitude+ ": People with lung disease, children, older adults, people who are active outdoors (including outdoor workers), people with certain genetic variants, and people with diets limited in certain nutrients are the groups most at risk ");       
+						}		
+                        if(chemical[x] == "pm25" || chemical[x] == "pm10")
+						{
+		
+                        alert(value.coordinates.latitude+ ""+value.coordinates.longitude+ ": People with heart or lung disease, older adults, children, and people of lower socioeconomic status are the groups most at risk ");     
+						}	
+if(chemical[x] == "co")
+						{
+				
+                        alert(value.coordinates.latitude+ ""+value.coordinates.longitude+ ": People with heart disease is the group most at risk ");       
+						}
+if(chemical[x] == "no2" || chemical[x] == "so2")
+						{
+					
+                        alert(value.coordinates.latitude+ ""+value.coordinates.longitude+ ": People with asthma, children, and older adults are the groups most at risk ");      	
+						
+					}
 					}
 					else if(store[count][i].value > 150 && store[count][i].value < 201)
 					{
 						cell.style.background = '#ff0000';
+						if(chemical[x] == "o3")
+						{
+				
+                        alert(value.coordinates.latitude+ ""+value.coordinates.longitude+ ": People with lung disease, children, older adults, people who are active outdoors (including outdoor workers), people with certain genetic variants, and people with diets limited in certain nutrients are the groups most at risk ");      
+						}		
+                        if(chemical[x] == "pm25" || chemical[x] == "pm10")
+						{
+	
+                        alert(value.coordinates.latitude+ ""+value.coordinates.longitude+ ": People with heart or lung disease, older adults, children, and people of lower socioeconomic status are the groups most at risk ");
+						}	
+if(chemical[x] == "co")
+						{
+				
+                        alert(value.coordinates.latitude+ ""+value.coordinates.longitude+ ": People with heart disease is the group most at risk ");       
+						}
+if(chemical[x] == "no2" || chemical[x] == "so2")
+						{
+	
+                        alert(value.coordinates.latitude+ ""+value.coordinates.longitude+ ": People with asthma, children, and older adults are the groups most at risk ");  
+						}	
 					}
 					else if(store[count][i].value > 200 && store[count][i].value < 301)
 					{
 						cell.style.background = '#8f3f97';
+						if(chemical[x] == "o3")
+						{
+		
+                        alert(value.coordinates.latitude+ ""+value.coordinates.longitude+ ": People with lung disease, children, older adults, people who are active outdoors (including outdoor workers), people with certain genetic variants, and people with diets limited in certain nutrients are the groups most at risk ");      
+
+						}		
+                        if(chemical[x] == "pm25" || chemical[x] == "pm10")
+						{
+                        alert(value.coordinates.latitude+ ""+value.coordinates.longitude+ ": People with heart or lung disease, older adults, children, and people of lower socioeconomic status are the groups most at risk ");       
+
+						}	
+if(chemical[x] == "co")
+						{
+						
+                        alert(value.coordinates.latitude+ ""+value.coordinates.longitude+ ": People with heart disease is the group most at risk ");       
+						}
+if(chemical[x] == "no2" || chemical[x] == "so2")
+						{
+						alert(value.coordinates.latitude+ ""+value.coordinates.longitude+ ": People with asthma, children, and older adults are the groups most at risk ");       // 
+						}	
 					}
 					else 
 					{
 						cell.style.background = '#99faa0';
+						if(chemical[x] == "o3")
+						{
+					
+                        alert(value.coordinates.latitude+ ""+value.coordinates.longitude+ ": People with lung disease, children, older adults, people who are active outdoors (including outdoor workers), people with certain genetic variants, and people with diets limited in certain nutrients are the groups most at risk ");     
+						}		
+                        if(chemical[x] == "pm25" || chemical[x] == "pm10")
+						{
+		
+                        alert(value.coordinates.latitude+ ""+value.coordinates.longitude+ ": People with heart or lung disease, older adults, children, and people of lower socioeconomic status are the groups most at risk ");    
+						}	
+if(chemical[x] == "co")
+						{
+						
+                        var t = document.alert(value.coordinates.latitude+ ""+value.coordinates.longitude+ ": People with heart disease is the group most at risk ");       
+						}
+if(chemical[x] == "no2" || chemical[x] == "so2")
+						{
+					
+                        alert(value.coordinates.latitude+ ""+value.coordinates.longitude+ ": People with asthma, children, and older adults are the groups most at risk ");      
+						}	
 					}
 					
 					

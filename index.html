@@ -52,7 +52,7 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
 </p>
 <p>
 <input type="checkbox" id="heatmap"> Heatmap mode </button><br>
-<input type text id="legend1"> value <= 15<br>
+<input type text id="legend1"> value = 15<br>
 <input type text id="legend2"> value = 45<br>
 <input type text id="legend3"> value = 75<br>
 <input type text id="legend4"> value = 105<br>
@@ -139,7 +139,7 @@ mymap.on("moveend",updateBox);
 <table id="legend">
 <caption>Legend</caption>
 <tr class="good">
-<td>Good<td>
+<td>0 to 50<td>
 </tr>
 <tr class="moderate">
 <td>Moderate<td>
