@@ -1,5 +1,5 @@
 var mymap;
-
+var markerlayer = new L.LayerGroup();
 function createMap()
 {
 	var mymap = L.map('mymap').setView([51.505, -0.09], 13);
@@ -156,18 +156,107 @@ function fullscreen()
 
 
 function updateTable(){
+	$("#mytable tbody tr").remove();
 	var center = mymap.getCenter();
 	var lat1 = center.lat;
 	var long1 = center.lng;
 	var count = 0;
 	var store = [100];
 	var i=0;
-	var chemical =["co","o3","no2","so2","pm10","pm25"];
-	var chemical =["pm25","pm10","so2","no2","o3","co"];
+	var chemical =["pm25","pm10","so2","no2","o3","co","bc"];
 	var hit = 0;
 	var row;
 	var cell;
 	var trigger = false;
+	var marker1;
+	var lat;
+	var log;
+	var popup = "";
+	var useful = false;
+	var space;
+	markerlayer.clearLayers();
+	
+	var checklist = [7];
+	var num1 = 0;
+	var check1 = document.getElementById("vehicle1");
+	var check2 = document.getElementById("vehicle2");
+	var check3 = document.getElementById("vehicle3");
+	var check4 = document.getElementById("vehicle4");
+	var check5 = document.getElementById("vehicle5");
+	var check6 = document.getElementById("vehicle6");
+	var check7 = document.getElementById("vehicle7");
+	
+	if(check1.checked == true )
+	{
+		checklist[num1] = true;
+		num1++;
+	}
+	else
+	{
+		checklist[num1] = false;
+		num1++;
+	}
+	if(check2.checked == true )
+	{
+		checklist[num1] = true;
+		num1++;
+	}
+	else
+	{
+		checklist[num1] = false;
+		num1++;
+	}
+	if(check3.checked == true )
+	{
+		checklist[num1] = true;
+		num1++;
+	}
+	else
+	{
+		checklist[num1] = false;
+		num1++;
+	}
+	if(check4.checked == true )
+	{
+		checklist[num1] = true;
+		num1++;
+	}
+	else
+	{
+		checklist[num1] = false;
+		num1++;
+	}
+	if(check5.checked == true )
+	{
+		checklist[num1] = true;
+		num1++;
+	}
+	else
+	{
+		checklist[num1] = false;
+		num1++;
+	}
+	if(check6.checked == true )
+	{
+		checklist[num1] = true;
+		num1++;
+	}
+	else
+	{
+		checklist[num1] = false;
+		num1++;
+	}
+	if(check7.checked == true )
+	{
+		checklist[num1] = true;
+		num1++;
+	}
+	else
+	{
+		checklist[num1] = false;
+		num1++;
+	}
+	console.log("the state of the checklist" + checklist.length);
 	
 	var edgeNorth = mymap.getBounds().getNorth();
 	var edgeEast = mymap.getBounds().getEast();
@@ -183,7 +272,7 @@ function updateTable(){
 	
 	var R = haversine(lat1, long1, lat2, long2);
 	//console.log(haversine(lat1, long1, lat2, long2));
-	var table = document.getElementById("mytable");
+	var table = document.getElementById("mybody");
 
 	$.ajax({
 		url: "https://api.openaq.org/v1/latest?coordinates="+lat1+","+long1+"&radius="+R,
@@ -191,28 +280,34 @@ function updateTable(){
 		type: 'get',
 		cache: false,
 		success: function(data){
+			count = 0;
+			space = 0;
 
 			$(data.results).each(function(index, value){
 				store[count] = value.measurements;
-				row = table.insertRow(count);
-				console.log(value);
-				console.log(store[count]);
+				popup = "";
+				useful = false;
+				
+				console.log(lat + " " + log);
+				row = table.insertRow(space);
+				console.log("useful or not? " + useful);
 				for(x=0;x<chemical.length;x++)
 				{
 				for(i=0;i<store[count].length;i++)
 				{
 
-						console.log(x+" this is the length");
-						console.log(chemical[x] + " " + store[count][i].parameter);
-						if(store[count][i].parameter== chemical[x])
+				console.log(chemical[x] + " " + store[count][i].parameter + " " + checklist[x] + " "  +useful);
+						if(store[count][i].parameter== chemical[x] && (checklist[x] == true))
 					{
 					cell = row.insertCell(x);
 			        cell.innerHTML = store[count][i].value;
 					trigger = true;
+					useful = true;
+					popup = popup + chemical[x] + ": " + store[count][i].value + " | ";
 					break;
 
 					}
-				    }
+				}
 					
 					    if(trigger == false)
 						{
@@ -223,6 +318,29 @@ function updateTable(){
 					
 				}
 				
+				if(useful == true)
+				{
+				lat = value.coordinates.latitude;
+				log = value.coordinates.longitude;
+	            marker1 = L.marker([lat, log]);
+				marker1.bindPopup(popup);
+        marker1.on('mouseover', function (e) {
+            this.openPopup();
+        });
+        marker1.on('mouseout', function (e) {
+            this.closePopup();
+        });
+		markerlayer.addLayer(marker1);
+		markerlayer.addTo(mymap);
+		space++;
+				}
+				
+				if(useful == false)
+				{
+					table.deleteRow(space);
+					console.log("#something is deleated" + count);
+
+				}
 				count++;
 
 
@@ -230,6 +348,31 @@ function updateTable(){
 			});
 			
 		}
+		$(document).ready(function() {
+
+$('table td').each(function() {
+var num = $(this).text();
+
+if ((num > 0) && (num < 51)) {
+$(this).css('backgroundColor', '#00e400'); //green
+}
+else if((num > 50) && (num < 101)) {
+$(this).css('backgroundColor', '#ffff00'); //yellow
+}
+else if((num > 100) && (num < 151)) {
+$(this).css('backgroundColor', '#ff7e00'); //orange
+}
+else if((num > 150) && (num < 201)) {
+$(this).css('backgroundColor', '#ff0000'); //red
+}
+else if((num > 200) && (num < 301)) {
+$(this).css('backgroundColor', '#8f3f97'); //purple
+}else {
+$(this).css('backgroundColor', '#99faa0'); //maroon
+}
+});
+return false;
+});
 	});
 	/*
 	for(i=0;i<store.length;i++)
@@ -242,6 +385,7 @@ function updateTable(){
 			cell.innerHTML = store[i][l].value;
 		}
 	}*/
+	
 }
 
 function haversine(){ //haversine formula code borrowed from Rosetta Code https://rosettacode.org/wiki/Haversine_formula#Java
