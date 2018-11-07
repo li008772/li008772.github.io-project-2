@@ -4,6 +4,19 @@
 	position:relative;
 	left:10rem;
 }
+#legendContainer
+{
+	float: right;
+}
+#legend1{
+font-size:150%;
+font-family: arial;
+}
+.passages
+{
+	size:3rem;
+	font-family:Arial;
+}
 .member
 {
 	position:relative;
@@ -38,12 +51,16 @@
 {
 	position:relative;
 	z-index: 2147483647;
-	top:1.5rem;
-	left: 2rem;
+	top:1.4rem;
+	left: 4rem;
 }
 #name
 {
-	width: 40rem;
+	width: 30rem;
+}
+#timespecific
+{
+	width: 35rem;
 }
 #legend1
 {
@@ -89,6 +106,29 @@ table td:last-child {
   border-right: none;
 }
 table tbody tr:nth-child(2n) td {
-  background: #D4D8F9;
 }
+.good{
+background-color: #00e400;
+}
+
+.moderate{
+background-color: #ffff00;
+}
+
+.unhealthySens{
+background-color: #ff7e00;
+}
+
+.unhealthy{
+background-color: #ff0000;
+}
+
+.vUnhealthy{
+background-color: #8f3f97;
+}
+
+.haz{
+background-color: #7e0023;
+}
+
 

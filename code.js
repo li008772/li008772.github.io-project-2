@@ -87,6 +87,8 @@ function updatelocation()
 
 function updateBox()
 {
+	var allnumbers;
+	var placeholder;
 	var location1 = document.getElementById("latitude");
 	var location2 = document.getElementById("longtitude");
 	if(location1 != null && location2 != null)
@@ -126,7 +128,16 @@ function updateBox()
 			console.log(thename.value);
 			if(thename.value != null)
 	        {
+			    placeholder = theanswer.display_name.split(',')[0];
+				allnumbers = /^\d+$/.test(placeholder);
+				if(allnumbers!=true)
+				{
 	           thename.value = theanswer.display_name.split(',')[0];
+				}
+				else
+				{
+					thename.value = theanswer.display_name.split(',')[0]+" " + theanswer.display_name.split(',')[1];
+				}
 			   console.log(theanswer.display_name.indexOf(","));
 	        }
 			
@@ -503,6 +514,10 @@ function updateTable(){
 	var edgeEast = mymap.getBounds().getEast();
 	var edgeSouth = mymap.getBounds().getSouth();
 	var edgeWest = mymap.getBounds().getWest();
+	var time1;
+	var time2;
+	var thetime1;
+	var thetime2;
 	
 	var edgeNW = mymap.getBounds().getNorthWest();
 	var lat2 = edgeNW.lat;
@@ -514,10 +529,29 @@ function updateTable(){
 	var R = haversine(lat1, long1, lat2, long2);
 	//console.log(haversine(lat1, long1, lat2, long2));
 	var table = document.getElementById("mybody");
-	var time = 2018-11-7;
+	var time = "2018-11-7";
+	var webaddress;
+	if(document.getElementById("timespecific").value == "")
+	{
+	webaddress = "https://api.openaq.org/v1/latest?coordinates="+lat1+","+long1+"&radius="+R;
+	}
+	else
+	{
+		thetime1 = document.getElementById("timespecific").value;
+		thetime2 = document.getElementById("timespecific").value;
+		time1 = parseInt(thetime1.charAt(thetime1.length-1),10)-1;
+		if(time1 == -1)
+		{
+			time1=9;
+		}
+		time2 = parseInt(thetime1.charAt(thetime1.length-1),10)+1;
+		thetime1 = thetime1.replace(/.$/,time1)
+		thetime2 = thetime2.replace(/.$/,time2)
+		webaddress = "https://api.openaq.org/v1/measurements?coordinates="+lat1+","+long1+"&radius="+R+"&date_to="+thetime2+"&date_from="+thetime1;
+	}
 
 	$.ajax({
-		url: "https://api.openaq.org/v1/latest?coordinates="+lat1+","+long1+"&radius="+R,
+		url: webaddress,
 		
 		//url: "https://api.openaq.org/v1/measurements?coordinates="+lat1+","+long1+"&radius="+R+"&date_to="+time,
 		dataType: 'json',
@@ -528,6 +562,7 @@ function updateTable(){
 			space = 0;
 
 			$(data.results).each(function(index, value){
+				console.log(value);
 				store[count] = value.measurements;
 				popup = "";
 				useful = false;
@@ -560,6 +595,32 @@ function updateTable(){
 					{
 						intensity = 200;
 					}
+					
+					if(store[count][i].value > 0 && store[count][i].value < 51)
+					{
+						cell.style.background = '#00e400';
+					}
+					else if(store[count][i].value > 50 && store[count][i].value < 100)
+					{
+						cell.style.background = '#ffff00';
+					}
+					else if(store[count][i].value > 100 && store[count][i].value < 151)
+					{
+						cell.style.background = '#ff7e00';
+					}
+					else if(store[count][i].value > 150 && store[count][i].value < 201)
+					{
+						cell.style.background = '#ff0000';
+					}
+					else if(store[count][i].value > 200 && store[count][i].value < 301)
+					{
+						cell.style.background = '#8f3f97';
+					}
+					else 
+					{
+						cell.style.background = '#99faa0';
+					}
+					
 					
 					break;
 
@@ -640,11 +701,11 @@ heatmark.addTo(mymap);
 			cell.innerHTML = store[i][l].value;
 		}
 	}*/
-	/*
-	$(document).ready(function() {
+/*
+$(document).ready(function() {
 
-$('table tbody').each(function() {
-var num = $(this).value();
+$('table td').each(function() {
+var num = $(this).text();
 
 if ((num > 0) && (num < 51)) {
 $(this).css('backgroundColor', '#00e400'); //green

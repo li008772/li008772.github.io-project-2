@@ -25,17 +25,17 @@
   </p>
 <div id="mymap">
  <div id="innerbox">
-<input type="text" id="latitude" value="51.505">
-<input type="text" id="longtitude" value="-0.09">
+<input type="text" id="latitude" value="44.94206015">
+<input type="text" id="longtitude" value="-93.189581998797">
 <button type="button" id="change" onclick="updateMap()"> Change </button>
 <p>
-<input type="text" id="name" value="carcosa">
+<input type="text" id="name" value="University of St Thomas">
 <button type="button" id="goto" onclick="updatelocation()"> Change </button>
 </p>
 </div>
 
 <script>
-var mymap = L.map('mymap').setView([51.505, -0.09], 13);
+var mymap = L.map('mymap').setView([44.94206015, -93.189581998797], 13);
 </script>
 </div>
 <script>
@@ -52,7 +52,7 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
 </p>
 <p>
 <input type="checkbox" id="heatmap"> Heatmap mode </button><br>
-<input type text id="legend1"> value = 15<br>
+<input type text id="legend1"> value <= 15<br>
 <input type text id="legend2"> value = 45<br>
 <input type text id="legend3"> value = 75<br>
 <input type text id="legend4"> value = 105<br>
@@ -71,7 +71,6 @@ Data filter
   <input type="checkbox" id="vehicle5" value="4" checked>o3<br>
   <input type="checkbox" id="vehicle6" value="5" checked>co<br>
   <input type="checkbox" id="vehicle7" value="6" checked>bc<br>
-  <input type="submit" value="Submit" onclick="updateTable()">
  <div  id="filterinput">
  pm25: <input type="text" id="pm25" value="0">
   <input type="checkbox" id="greater1" value="0" checked>greater
@@ -108,6 +107,9 @@ bc: <input type="text" id="bc" value="0">
    <input type="checkbox" id="equal7" value="0" checked>equal
     <input type="checkbox" id="lesser7" value="0" checked>lesser
 <br>
+  <input type="text" id="timespecific" value="" placeholder="year-month-date or year-month-dateTHours:minutes:seconds">
+  <br>
+  <input type="submit" value="Submit" onclick="updateTable()">
  </div>
 
 <table id="mytable">
@@ -122,13 +124,6 @@ bc: <input type="text" id="bc" value="0">
 	  <th>bc</th>
     </tr>
 	<tr>
-	<td></td>
-	<td></td>
-	<td></td>
-	<td></td>
-	<td></td>
-	<td></td>
-    <td></td>
 
 	</tr>
   </thead>
@@ -140,6 +135,31 @@ updateTable();
 mymap.on("moveend",updateTable);
 mymap.on("moveend",updateBox);
 </script>
+<div id="legendContainer">
+<table id="legend">
+<caption>Legend</caption>
+<tr class="good">
+<td>Good<td>
+</tr>
+<tr class="moderate">
+<td>Moderate<td>
+</tr>
+<tr class="unhealthySens">
+<td>Unhealthy for Sensitive Groups<td>
+</tr>
+<tr class="unhealthy">
+<td>Unhealthy<td>
+</tr>
+<tr class="vUnhealthy"> 
+<td>Very Unhealthy<td>
+</tr>
+<tr class="haz">
+<td>Hazardous<td>
+</tr>
+
+</table>
+</div>
+
 
  </body>
 </html>
