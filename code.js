@@ -1,5 +1,7 @@
 var mymap;
 var markerlayer = new L.LayerGroup();
+var heatmark = new L.LayerGroup();
+var heat = 0;
 function createMap()
 {
 	var mymap = L.map('mymap').setView([51.505, -0.09], 13);
@@ -164,6 +166,17 @@ function updateTable(){
 	var store = [100];
 	var i=0;
 	var chemical =["pm25","pm10","so2","no2","o3","co","bc"];
+	var userinput = ["","","","","","",""];
+	var holder1;
+	var holder2;
+	var holder3;
+	var heattarget;
+	var intensity;
+	
+	var greater;
+	var equal;
+	var lesser;
+	
 	var hit = 0;
 	var row;
 	var cell;
@@ -175,6 +188,8 @@ function updateTable(){
 	var useful = false;
 	var space;
 	markerlayer.clearLayers();
+	heatmark.clearLayers();
+	
 	
 	var checklist = [7];
 	var num1 = 0;
@@ -185,6 +200,7 @@ function updateTable(){
 	var check5 = document.getElementById("vehicle5");
 	var check6 = document.getElementById("vehicle6");
 	var check7 = document.getElementById("vehicle7");
+	var checkheat = document.getElementById("heatmap");
 	
 	if(check1.checked == true )
 	{
@@ -256,7 +272,232 @@ function updateTable(){
 		checklist[num1] = false;
 		num1++;
 	}
+	console.log(checklist);
+	if(checkheat.checked == true)
+	{
+	      for(y =0;y<checklist.length;y++)
+		  {
+			  if(checklist[y]==true)
+			  {
+				  heattarget = true;
+				  break;
+			  }
+		  }
+	}
 	console.log("the state of the checklist" + checklist.length);
+	
+	var pm25in = document.getElementById("pm25");
+	var pm25gr = document.getElementById("greater1");
+	var pm25eq = document.getElementById("equal1");
+	var pm25le = document.getElementById("lesser1");
+	if(pm25gr.checked == true)
+	{
+		holder1 = pm25in.value;
+	}
+	else
+	{
+		holder1 = 10000000;
+	}
+	if(pm25eq.checked == true)
+	{
+		holder2 = pm25in.value;
+	}
+	else
+	{
+		holder2 = -1;
+	}
+	if(pm25le.checked == true)
+	{
+		holder3 = pm25in.value;
+	}
+	else
+	{
+		holder3 = -1;
+	}
+	userinput[0]=[holder1,holder2,holder3];
+	
+	var pm10in = document.getElementById("pm10");
+	var pm10gr = document.getElementById("greater2");
+	var pm10eq = document.getElementById("equal2");
+	var pm10le = document.getElementById("lesser2");
+	if(pm10gr.checked == true)
+	{
+		holder1 = pm10in.value;
+	}
+	else
+	{
+		holder1 = 10000000;
+	}
+	if(pm10eq.checked == true)
+	{
+		holder2 = pm10in.value;
+	}
+	else
+	{
+		holder2 = -1;
+	}
+	if(pm10le.checked == true)
+	{
+		holder3 = pm10in.value;
+	}
+	else
+	{
+		holder3 = 0;
+	}
+	userinput[1]=[holder1,holder2,holder3];
+	var so2in = document.getElementById("so2");
+	var so2gr = document.getElementById("greater3");
+	var so2eq = document.getElementById("equal3");
+	var so2le = document.getElementById("lesser3");
+	if(so2gr.checked == true)
+	{
+		holder1= so2in.value;
+	}
+	else
+	{
+		holder1= 10000000;
+	}
+	if(so2eq.checked == true)
+	{
+		holder2= so2in.value;
+	}
+	else
+	{
+		holder2= -1;
+	}
+	if(so2le.checked == true)
+	{
+		holder3= so2in.value;
+	}
+	else
+	{
+		holder3= 0;
+	}
+	userinput[2]=[holder1,holder2,holder3];
+	
+	var no2in = document.getElementById("no2");
+	var no2gr = document.getElementById("greater4");
+	var no2eq = document.getElementById("equal4");
+	var no2le = document.getElementById("lesser4");
+	if(no2gr.checked == true)
+	{
+		holder1= no2in.value;
+	}
+	else
+	{
+		holder1= 10000000;
+	}
+	if(no2eq.checked == true)
+	{
+		holder2= no2in.value;
+	}
+	else
+	{
+		holder2= -1;
+	}
+	if(no2le.checked == true)
+	{
+		holder3= no2in.value;
+	}
+	else
+	{
+		holder3= 0;
+	}
+	userinput[3]=[holder1,holder2,holder3];
+	
+	var o3in = document.getElementById("o3");
+	var o3gr = document.getElementById("greater5");
+	var o3eq = document.getElementById("equal5");
+	var o3le = document.getElementById("lesser5");
+	if(o3gr.checked == true)
+	{
+		holder1= o3in.value;
+	}
+	else
+	{
+		holder1= 10000000;
+	}
+	if(o3eq.checked == true)
+	{
+		holder2= o3in.value;
+	}
+	else
+	{
+		holder2= -1;
+	}
+	if(o3le.checked == true)
+	{
+		holder3= o3in.value;
+	}
+	else
+	{
+		holder3= 0;
+	}
+	userinput[4]=[holder1,holder2,holder3];
+	
+	var coin = document.getElementById("co");
+	var cogr = document.getElementById("greater6");
+	var coeq = document.getElementById("equal6");
+	var cole = document.getElementById("lesser6");
+	if(cogr.checked == true)
+	{
+		holder1=coin.value;
+	}
+	else
+	{
+		holder1= 10000000;
+	}
+	if(coeq.checked == true)
+	{
+		holder2= coin.value;
+	}
+	else
+	{
+		holder2= -1;
+	}
+	if(cole.checked == true)
+	{
+		holder3= coin.value;
+	}
+	else
+	{
+		holder3= 0;
+	}
+	userinput[5]=[holder1,holder2,holder3];
+	
+	var bcin = document.getElementById("bc");
+	var bcgr = document.getElementById("greater7");
+	var bceq = document.getElementById("equal7");
+	var bcle = document.getElementById("lesser7");
+	if(bcgr.checked == true)
+	{
+		holder1= bcin.value;
+	}
+	else
+	{
+		holder1= 10000000;
+	}
+	if(bceq.checked == true)
+	{
+		holder2= bcin.value;
+	}
+	else
+	{
+		holder2=-1;
+	}
+	if(bcle.checked == true)
+	{
+		holder3= bcin.value;
+	}
+	else
+	{
+		holder3= 0;
+	}
+	userinput[6]=[holder1,holder2,holder3];
+	console.log("input lot "+ userinput);
+	
+	
+	
 	
 	var edgeNorth = mymap.getBounds().getNorth();
 	var edgeEast = mymap.getBounds().getEast();
@@ -273,9 +514,12 @@ function updateTable(){
 	var R = haversine(lat1, long1, lat2, long2);
 	//console.log(haversine(lat1, long1, lat2, long2));
 	var table = document.getElementById("mybody");
+	var time = 2018-11-7;
 
 	$.ajax({
 		url: "https://api.openaq.org/v1/latest?coordinates="+lat1+","+long1+"&radius="+R,
+		
+		//url: "https://api.openaq.org/v1/measurements?coordinates="+lat1+","+long1+"&radius="+R+"&date_to="+time,
 		dataType: 'json',
 		type: 'get',
 		cache: false,
@@ -296,14 +540,27 @@ function updateTable(){
 				for(i=0;i<store[count].length;i++)
 				{
 
-				console.log(chemical[x] + " " + store[count][i].parameter + " " + checklist[x] + " "  +useful);
-						if(store[count][i].parameter== chemical[x] && (checklist[x] == true))
+				console.log(chemical[x] + " " + store[count][i].parameter + " " + checklist[x] + " "  +useful + ": " +store[count][i].value);
+				console.log(value);
+				if(document.getElementById(chemical[x]).checked == true)
+				{
+					greater = store[count][i].value>userinput[x][0];
+				}
+				
+				if(store[count][i].parameter== chemical[x] && (checklist[x] == true) && (store[count][i].value>userinput[x][0]|| store[count][i].value==userinput[x][1]||store[count][i].value<userinput[x][2]))
 					{
+					console.log("updating");
 					cell = row.insertCell(x);
 			        cell.innerHTML = store[count][i].value;
 					trigger = true;
 					useful = true;
 					popup = popup + chemical[x] + ": " + store[count][i].value + " | ";
+					intensity = store[count][i].value/150;
+					if(intensity>200)
+					{
+						intensity = 200;
+					}
+					
 					break;
 
 					}
@@ -333,6 +590,29 @@ function updateTable(){
 		markerlayer.addLayer(marker1);
 		markerlayer.addTo(mymap);
 		space++;
+		console.log("i need the color: "+ heattarget);
+		if(heattarget==true)
+		{
+		 heat = L.heatLayer([
+	[lat, log, intensity]// lat, lng, intensi
+],
+	{
+		radius: 40,
+		minOpacity: 0.3,
+		blur:20,
+		gradient: {
+                    0.1: '#f9f345',
+                    0.3: '#ff9d00',
+                    0.5: '#ff6100',
+					0.7:'#ff0000',
+					0.9: '#ff00c7'
+                }
+	
+	}
+);
+heatmark.addLayer(heat);
+heatmark.addTo(mymap);
+		}
 				}
 				
 				if(useful == false)
@@ -348,10 +628,23 @@ function updateTable(){
 			});
 			
 		}
-		$(document).ready(function() {
+	});
+	/*
+	for(i=0;i<store.length;i++)
+	{
+		console.log("row update" + store[0]);
+		row = table.insertRow(i);
+		for(l=0;l<store[i].length;l++)
+		{
+			cell = row.insertCell(l);
+			cell.innerHTML = store[i][l].value;
+		}
+	}*/
+	/*
+	$(document).ready(function() {
 
-$('table td').each(function() {
-var num = $(this).text();
+$('table tbody').each(function() {
+var num = $(this).value();
 
 if ((num > 0) && (num < 51)) {
 $(this).css('backgroundColor', '#00e400'); //green
@@ -373,19 +666,7 @@ $(this).css('backgroundColor', '#99faa0'); //maroon
 });
 return false;
 });
-	});
-	/*
-	for(i=0;i<store.length;i++)
-	{
-		console.log("row update" + store[0]);
-		row = table.insertRow(i);
-		for(l=0;l<store[i].length;l++)
-		{
-			cell = row.insertCell(l);
-			cell.innerHTML = store[i][l].value;
-		}
-	}*/
-	
+*/
 }
 
 function haversine(){ //haversine formula code borrowed from Rosetta Code https://rosettacode.org/wiki/Haversine_formula#Java

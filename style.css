@@ -1,3 +1,33 @@
+.word-menu li
+{
+	display: inline;
+	position:relative;
+	left:10rem;
+}
+.member
+{
+	position:relative;
+	top:2rem;
+	color:#e56b6b;
+}
+#bio
+{
+	background:#fff67f;
+}
+
+.word-menu a
+{
+	padding-bottom:2rem;
+	padding-left:2rem;
+	padding-top:2rem;
+	padding-right:2rem;
+	color:#ffffff;
+	border-style: solid;
+	border-color: #a8a8a8;
+	background-color: #a8a8a8;
+	border-radius: 25px;
+	text-decoration: none;
+}
 #mymap
 {
 	height: 40rem;
@@ -14,6 +44,31 @@
 #name
 {
 	width: 40rem;
+}
+#legend1
+{
+	background: #f9f345;
+	cursor: default;
+}
+#legend2
+{
+	background: #ff9d00;
+	cursor: default;
+}
+#legend3
+{
+	background: #ff6100;
+	cursor: default;
+}
+#legend4
+{
+	background: #ff0000;
+	cursor: default;
+}
+#legend5
+{
+	background: #ff00c7;
+	cursor: default;
 }
 
 table th {

@@ -8,8 +8,21 @@
   <script type="text/javascript" src="leaflet.js"></script>
   <script type="text/javascript" src="vue.js"></script>
   <script type="text/javascript" src="code.js"></script>
+  <script type="text/javascript" src="leaflet-heat.js"></script>
+  <script type="text/javascript" src="HeatLayer.js"></script>
  </head>
  <body>
+ <p id="first-element">
+  <ol class="word-menu">
+   <li>
+    <a href="https://li008772.github.io/project2/index.html">Map</a>
+   </li>
+   <li>
+    <a href="https://li008772.github.io/project2/ourstory.html">About the Project</a>
+   </li>
+  </ol>
+  <p></p>
+  </p>
 <div id="mymap">
  <div id="innerbox">
 <input type="text" id="latitude" value="51.505">
@@ -38,6 +51,15 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
 <button type="button" id="fullscreen" onclick="fullscreen()"> Go fullscreen </button>
 </p>
 <p>
+<input type="checkbox" id="heatmap"> Heatmap mode </button><br>
+<input type text id="legend1"> value = 15<br>
+<input type text id="legend2"> value = 45<br>
+<input type text id="legend3"> value = 75<br>
+<input type text id="legend4"> value = 105<br>
+<input type text id="legend5"> value >= 150<br>
+
+</p>
+<p>
 <h1>
 Data filter
 </h1>
@@ -52,39 +74,39 @@ Data filter
   <input type="submit" value="Submit" onclick="updateTable()">
  <div  id="filterinput">
  pm25: <input type="text" id="pm25" value="0">
-  <input type="checkbox" id="greater1" value="1" checked>greater
-   <input type="checkbox" id="equal1" value="1" checked>equal
-    <input type="checkbox" id="lesser1" value="1" checked>lesser
+  <input type="checkbox" id="greater1" value="0" checked>greater
+   <input type="checkbox" id="equal1" value="0" checked>equal
+    <input type="checkbox" id="lesser1" value="0" checked>lesser
 <br>
 pm10: <input type="text" id="pm10" value="0">
-  <input type="checkbox" id="greater2" value="1" checked>greater
-   <input type="checkbox" id="equal2" value="1" checked>equal
-    <input type="checkbox" id="lesser2" value="1" checked>lesser
+  <input type="checkbox" id="greater2" value="0" checked>greater
+   <input type="checkbox" id="equal2" value="0" checked>equal
+    <input type="checkbox" id="lesser2" value="0" checked>lesser
 <br>
 so2: <input type="text" id="so2" value="0">
-  <input type="checkbox" id="greater3" value="1" checked>greater
-   <input type="checkbox" id="equal3" value="1" checked>equal
-    <input type="checkbox" id="lesser3" value="1" checked>lesser
+  <input type="checkbox" id="greater3" value="0" checked>greater
+   <input type="checkbox" id="equal3" value="0" checked>equal
+    <input type="checkbox" id="lesser3" value="0" checked>lesser
 <br>
 no2: <input type="text" id="no2" value="0">
-  <input type="checkbox" id="greater4" value="1" checked>greater
-   <input type="checkbox" id="equal4" value="1" checked>equal
-    <input type="checkbox" id="lesser4" value="1" checked>lesser
+  <input type="checkbox" id="greater4" value="0" checked>greater
+   <input type="checkbox" id="equal4" value="0" checked>equal
+    <input type="checkbox" id="lesser4" value="0" checked>lesser
 <br>
 o3: <input type="text" id="o3" value="0">
-  <input type="checkbox" id="greater5" value="1" checked>greater
-   <input type="checkbox" id="equal5" value="1" checked>equal
-    <input type="checkbox" id="lesser5" value="1" checked>lesser
+  <input type="checkbox" id="greater5" value="0" checked>greater
+   <input type="checkbox" id="equal5" value="0" checked>equal
+    <input type="checkbox" id="lesser5" value="0" checked>lesser
 <br>
 co: <input type="text" id="co" value="0">
-  <input type="checkbox" id="greater6" value="1" checked>greater
-   <input type="checkbox" id="equal6" value="1" checked>equal
-    <input type="checkbox" id="lesser6" value="1" checked>lesser
+  <input type="checkbox" id="greater6" value="0" checked>greater
+   <input type="checkbox" id="equal6" value="0" checked>equal
+    <input type="checkbox" id="lesser6" value="0" checked>lesser
 <br>
 bc: <input type="text" id="bc" value="0">
-  <input type="checkbox" id="greater7" value="1" checked>greater
-   <input type="checkbox" id="equal7" value="1" checked>equal
-    <input type="checkbox" id="lesser7" value="1" checked>lesser
+  <input type="checkbox" id="greater7" value="0" checked>greater
+   <input type="checkbox" id="equal7" value="0" checked>equal
+    <input type="checkbox" id="lesser7" value="0" checked>lesser
 <br>
  </div>
 
