@@ -6,15 +6,19 @@
   <link rel="stylesheet" type="text/css" href="style.css" />
   <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
   <script type="text/javascript" src="leaflet.js"></script>
+  <script type="text/javascript" src="vue.js"></script>
   <script type="text/javascript" src="code.js"></script>
  </head>
  <body>
- <script type="text/javascript" src="code.js"></script>
 <div id="mymap">
  <div id="innerbox">
 <input type="text" id="latitude" value="51.505">
 <input type="text" id="longtitude" value="-0.09">
 <button type="button" id="change" onclick="updateMap()"> Change </button>
+<p>
+<input type="text" id="name" value="carcosa">
+<button type="button" id="goto" onclick="updatelocation()"> Change </button>
+</p>
 </div>
 <script>
 var mymap = L.map('mymap').setView([51.505, -0.09], 13);
@@ -30,17 +34,31 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
 
 </script>
 <p>
-<input type="text" id="latitude" value="51.505">
-<input type="text" id="longtitude" value="-0.09">
-<button type="button" id="change" onclick="updateMap()"> Change </button>
 </p>
 <p>
-<input type="text" id="name" value="carcosa">
-<button type="button" id="goto" onclick="updatelocation()"> Change </button>
 </p>
 <p>
 <button type="button" id="fullscreen" onclick="fullscreen()"> Go fullscreen </button>
 </p>
-<script>mymap.on('moveend',updateBox);</script>
+<table id="mytable">
+  <thead>
+    <tr>
+      <th>pm25</th>
+      <th>pm10</th>
+      <th>so2</th>
+      <th>no2</th>
+	  <th>o3</th>
+      <th>co</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+<script>
+updateTable();
+mymap.on("moveend",updateTable);
+mymap.on("moveend",updateBox);
+</script>
+
  </body>
 </html>
